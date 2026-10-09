@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard DSS: Batas Kerja, Burnout, dan Produktivitas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F6F8;--surf:#fff;--ink:#16203A;--mute:#5B6479;--line:#DDE2EA;--work:#3A4BD6;--life:#12A58B;--warn:#8A5A0B;--warnbg:#FFF4DC;--ok:#0E6E5C;--okbg:#DDF5EE;--no:#9A3B3B;--nobg:#F9E3E3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1426;--surf:#172036;--ink:#E8ECF7;--mute:#97A1BA;--line:#27314D;--work:#8C99FF;--life:#3FD1B3;--warn:#E8B04B;--warnbg:#3A2E12;--ok:#5FD8BC;--okbg:#123A33;--no:#F29A9A;--nobg:#3E1B1F}}
+:root[data-theme="dark"]{--bg:#0F1426;--surf:#172036;--ink:#E8ECF7;--mute:#97A1BA;--line:#27314D;--work:#8C99FF;--life:#3FD1B3;--warn:#E8B04B;--warnbg:#3A2E12;--ok:#5FD8BC;--okbg:#123A33;--no:#F29A9A;--nobg:#3E1B1F}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 16px/1.6 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;line-height:1.15;margin:0;letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--work);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;align-items:center;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+nav b{font-family:"Bricolage Grotesque",sans-serif;margin-right:auto;white-space:nowrap;padding-right:12px}
+nav a{text-decoration:none;padding:6px 12px;border-radius:99px;color:var(--mute);font-weight:500;font-size:14px;white-space:nowrap}
+nav a:hover{background:var(--surf);color:var(--ink)}
+.hero{padding:56px 0 36px}
+.hero h1{font-size:clamp(32px,5.4vw,58px);font-weight:700;max-width:18em}
+.hero p{max-width:40em;color:var(--mute);font-size:18px;margin:18px 0 0}
+.band{margin-top:36px;border-radius:20px;overflow:hidden;background:var(--surf);border:1px solid var(--line)}
+.band svg{display:block;width:100%;height:auto}
+.band figcaption{padding:12px 18px;color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+.band{margin-left:0;margin-right:0}
+.hero .band{animation:rise .9s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hero .band{animation:none}html{scroll-behavior:auto}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:22px 0 0}
+.fact{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.fact strong{display:block;font:700 28px/1.1 "Bricolage Grotesque",sans-serif}
+.fact span{color:var(--mute);font-size:14px}
+section{padding:44px 0 8px}
+section>.wrap>h2{font-size:clamp(24px,3.4vw,34px);font-weight:700}
+.lead{color:var(--mute);max-width:44em;margin:8px 0 22px}
+.seg{display:inline-flex;background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:3px;margin-bottom:16px}
+.seg button{font:500 14px Figtree,sans-serif;border:0;background:none;color:var(--mute);padding:7px 14px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:20px}
+.hy h3{font-size:20px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.pill{font:600 13px Figtree,sans-serif;padding:3px 11px;border-radius:99px;white-space:nowrap}
+.pill.ok{background:var(--okbg);color:var(--ok)}.pill.no{background:var(--nobg);color:var(--no)}
+.hy p{margin:10px 0 12px}.hy small{color:var(--mute);display:block}
+.hy code{font:500 14px/1.5 Figtree,sans-serif;background:var(--bg);padding:2px 8px;border-radius:6px}
+.dist{display:grid;gap:18px}
+.row h3{font-size:17px;margin-bottom:8px;display:flex;justify-content:space-between}
+.row h3 span{font:500 14px Figtree,sans-serif;color:var(--mute)}
+.stack{display:flex;height:40px;border-radius:10px;overflow:hidden;gap:2px}
+.stack div{display:flex;align-items:center;padding-left:10px;font:600 13px Figtree,sans-serif;min-width:0;white-space:nowrap}
+.s1{background:color-mix(in srgb,var(--work) 18%,var(--surf));color:var(--ink)}
+.s2{background:color-mix(in srgb,var(--work) 50%,var(--surf));color:var(--ink)}
+.s3{background:var(--work);color:var(--bg)}
+.key{display:flex;gap:16px;font-size:14px;color:var(--mute);margin-top:14px;flex-wrap:wrap}
+.key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.table{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-weight:600;color:var(--mute);font-size:14px}
+td.n{font-variant-numeric:tabular-nums}
+.meter{height:14px;background:var(--bg);border-radius:99px;overflow:hidden;margin:10px 0 6px;border:1px solid var(--line)}
+.meter div{height:100%;background:var(--work);border-radius:99px}
+.big{font:700 40px/1 "Bricolage Grotesque",sans-serif}
+.note{display:flex;gap:12px;background:var(--warnbg);color:var(--warn);border-radius:14px;padding:14px 16px;margin:0 0 18px;font-weight:500}
+.note svg{flex:none;margin-top:3px}
+.imp{display:grid;gap:8px}
+.imp div.r{display:grid;grid-template-columns:28px minmax(120px,260px) 1fr 64px;gap:12px;align-items:center;font-size:15px}
+.imp .c{font:600 12px Figtree,sans-serif;color:var(--mute)}
+.imp .t{height:12px;background:var(--bg);border-radius:99px;overflow:hidden}
+.imp .t i{display:block;height:100%;border-radius:99px;transition:width .5s ease}
+.imp .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute)}
+@media (max-width:640px){.imp div.r{grid-template-columns:1fr 54px;gap:4px 10px}.imp .c{display:none}.imp .t{grid-column:1/-1;order:3}}
+ol.rec{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+ol.rec li{background:var(--surf);border:1px solid var(--line);border-left:5px solid var(--life);border-radius:12px;padding:14px 18px}
+ol.rec b{display:block}
+.nosim{border-left:5px solid var(--warn);background:var(--surf)}
+footer{margin-top:48px;padding:24px 0 40px;border-top:1px solid var(--line);color:var(--mute);font-size:14px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>Dashboard DSS</b><a href="#hipotesis">Hipotesis</a><a href="#tingkat">Tingkat</a><a href="#regresi">Regresi</a><a href="#indikator">Indikator</a><a href="#rekomendasi">Rekomendasi</a></div></nav>
+
+<header class="hero"><div class="wrap">
+<h1>Batas kerja yang kabur berkaitan dengan burnout, tetapi belum terbukti menurunkan produktivitas</h1>
+<p>Ringkasan hasil survei 131 pekerja remote dan hybrid di sektor teknologi informasi. Gunakan untuk memantau tren tim, bukan menilai individu.</p>
+<figure class="band">
+<svg viewBox="0 0 900 190" role="img" aria-label="Ilustrasi batas antara waktu kerja dan waktu pribadi yang menjadi kabur">
+<defs><filter id="bl" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+<linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="var(--work)" stop-opacity=".9"/><stop offset="1" stop-color="var(--work)" stop-opacity=".55"/></linearGradient>
+<linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="var(--life)" stop-opacity=".55"/><stop offset="1" stop-color="var(--life)" stop-opacity=".9"/></linearGradient></defs>
+<g filter="url(#bl)"><rect x="-40" y="30" width="520" height="130" fill="url(#gw)"/><rect x="420" y="30" width="520" height="130" fill="url(#gl)"/></g>
+<line x1="450" y1="22" x2="450" y2="168" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 7" opacity=".55"/>
+<text x="40" y="98" fill="var(--bg)" font-family="Figtree,sans-serif" font-size="22" font-weight="600">Jam kerja</text>
+<text x="860" y="98" fill="var(--bg)" font-family="Figtree,sans-serif" font-size="22" font-weight="600" text-anchor="end">Waktu pribadi</text>
+<text x="450" y="184" fill="var(--ink)" font-family="Figtree,sans-serif" font-size="14" text-anchor="middle" opacity=".75">batas yang seharusnya ada</text></svg>
+<figcaption>Rata-rata responden berada di tengah: pekerjaan menyita waktu personal (3,34 dari 5) dan terus terbawa ke aktivitas pribadi (3,31).</figcaption></figure>
+<div class="facts">
+<div class="fact"><strong>131</strong><span>responden dianalisis dari 150 yang terkumpul</span></div>
+<div class="fact"><strong>17,0%</strong><span>variasi burnout yang terkait dengan batas kerja</span></div>
+<div class="fact"><strong>2,9%</strong><span>variasi produktivitas yang dijelaskan model</span></div>
+<div class="fact"><strong>0,80 – 0,86</strong><span>Cronbach's Alpha, instrumen reliabel</span></div>
+</div></div></header>
+
+<main>
+<section id="hipotesis"><div class="wrap">
+<h2>Hasil pengujian hipotesis</h2>
+<p class="lead">Hanya satu dari tiga hipotesis yang didukung data. Hasilnya sama setelah penyaringan responden maupun tanpa penyaringan.</p>
+<div class="seg" role="group" aria-label="Pilih kumpulan data"><button id="b131" aria-pressed="true">131 responden (disaring)</button><button id="b150" aria-pressed="false">150 responden (semua)</button></div>
+<div class="grid" id="hyp"></div>
+</div></section>
+
+<section id="tingkat"><div class="wrap">
+<h2>Tingkat tiap variabel</h2>
+<p class="lead">Ketiga variabel berada pada tingkat sedang. Produktivitas diukur lewat penilaian diri, jadi baca sebagai persepsi, bukan kinerja objektif.</p>
+<div class="card"><div class="dist" id="dist"></div>
+<div class="key"><span><i class="s1"></i>Rendah</span><span><i class="s2"></i>Sedang</span><span><i class="s3"></i>Tinggi</span></div></div>
+</div></section>
+
+<section id="regresi"><div class="wrap">
+<h2>Seberapa kuat hubungannya</h2>
+<p class="lead">Batas kerja menjelaskan sebagian burnout, tetapi hampir tidak menjelaskan produktivitas.</p>
+<div class="two">
+<div class="card"><h3>Batas kerja → burnout</h3><div class="big">17,0%</div>
+<div class="meter" role="img" aria-label="R kuadrat 17,0 persen"><div style="width:17%"></div></div>
+<small style="color:var(--mute)">B = 0,395 · t = 5,143 · p &lt; 0,001</small></div>
+<div class="card"><h3>Batas kerja dan burnout → produktivitas</h3><div class="big">2,9%</div>
+<div class="meter" role="img" aria-label="R kuadrat 2,9 persen"><div style="width:2.9%"></div></div>
+<small style="color:var(--mute)">F = 1,880 · p = 0,157 · 97,1% dipengaruhi faktor lain</small></div>
+</div>
+<div class="card table" style="margin-top:14px"><table><caption style="text-align:left;font-weight:600;padding:0 0 8px">Koefisien regresi, Y = 14,379 + 0,205 X1 − 0,132 X2</caption>
+<thead><tr><th>Variabel</th><th>B</th><th>SE</th><th>Beta</th><th>t</th><th>Sig.</th></tr></thead><tbody>
+<tr><td>Konstanta</td><td class="n">14,379</td><td class="n">1,932</td><td></td><td class="n">7,441</td><td class="n">&lt; 0,001</td></tr>
+<tr><td>X1 Boundary blurring</td><td class="n">0,205</td><td class="n">0,108</td><td class="n">0,181</td><td class="n">1,892</td><td class="n">0,061</td></tr>
+<tr><td>X2 Burnout</td><td class="n">−0,132</td><td class="n">0,113</td><td class="n">−0,112</td><td class="n">−1,169</td><td class="n">0,245</td></tr></tbody></table></div>
+</div></section>
+
+<section id="indikator"><div class="wrap">
+<h2>Peringkat indikator</h2>
+<div class="note"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3 2 21h20L12 3Z"/><path d="M12 10v5M12 18v.5"/></svg><span>Model Random Forest tidak mampu memprediksi produktivitas (R² validasi silang −0,042). Peringkat ini hanya deskriptif dan bukan bukti indikator penyebab utama.</span></div>
+<div class="seg" role="group" aria-label="Ukuran peringkat"><button id="bm" aria-pressed="true">Bobot MDI</button><button id="bp" aria-pressed="false">Permutation importance</button></div>
+<div class="card"><div class="imp" id="imp"></div>
+<div class="key"><span><i style="background:var(--work)"></i>Boundary blurring (X1)</span><span><i style="background:var(--life)"></i>Burnout (X2)</span></div></div>
+</div></section>
+
+<section id="rekomendasi"><div class="wrap">
+<h2>Rekomendasi untuk manajer</h2>
+<p class="lead">Langkah yang aman dilakukan dengan temuan saat ini.</p>
+<ol class="rec">
+<li><b>Kelola batas kerja sebagai pencegahan burnout</b>Tetapkan jam komunikasi, utamakan komunikasi asinkron, dan jelaskan ekspektasi respons.</li>
+<li><b>Pantau burnout secara berkala</b>Jalankan survei singkat agar kelelahan terdeteksi lebih awal.</li>
+<li><b>Ukur produktivitas secara objektif</b>Pakai penyelesaian tiket atau tingkat bug sebelum menyimpulkan dampak pada tim Anda.</li>
+<li><b>Gunakan intervensi lebih dari satu arah</b>Perhatikan juga beban kerja, dukungan organisasi, dan otonomi.</li>
+<li><b>Gunakan dashboard untuk tren tim</b>Jangan dipakai menilai individu atau memprediksi produktivitas.</li>
+</ol>
+<div class="card nosim" style="margin-top:18px"><h3 style="font-size:18px">Mengapa tidak ada simulator prediksi</h3>
+<p style="margin:8px 0 0;color:var(--mute)">Model regresi tidak signifikan (p = 0,157; R² 2,9%) dan Random Forest tidak lebih baik dari rata-rata (R² validasi silang −0,042). Angka prediksi dari model seperti ini akan menyesatkan, jadi simulator sengaja ditiadakan.</p></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">Sumber: Laporan Penelitian Frengki Alfredo Matondang, Universitas Negeri Medan, 2026. Desain penelitian cross-sectional dengan data persepsi diri, sehingga hasilnya menunjukkan asosiasi, bukan sebab-akibat. Prototipe belum diuji kepada pengguna.</div></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const H={
+ 131:[["H1","Batas kerja berpengaruh positif terhadap burnout","B = 0,395 · p < 0,001",1],["H2","Burnout berpengaruh negatif terhadap produktivitas","B = −0,132 · p = 0,245",0],["H3","Batas kerja dan burnout berpengaruh bersama terhadap produktivitas","F = 1,880 · p = 0,157",0]],
+ 150:[["H1","Batas kerja berpengaruh positif terhadap burnout","B = 0,388 · p < 0,001",1],["H2","Burnout berpengaruh negatif terhadap produktivitas","B = −0,154 · p = 0,147",0],["H3","Batas kerja dan burnout berpengaruh bersama terhadap produktivitas","F = 2,38 · p = 0,096",0]]};
+function hyp(n){
+ $("#hyp").innerHTML=H[n].map(h=>`<article class="card hy"><h3>${h[0]}<span class="pill ${h[3]?"ok":"no"}">${h[3]?"Diterima":"Ditolak"}</span></h3><p>${h[1]}</p><code>${h[2]}</code><small style="margin-top:10px">R² model produktivitas: ${n==131?"0,029":"0,031"}</small></article>`).join("");
+ $("#b131").setAttribute("aria-pressed",n==131);$("#b150").setAttribute("aria-pressed",n==150);
+}
+$("#b131").onclick=()=>hyp(131);$("#b150").onclick=()=>hyp(150);hyp(131);
+
+const D=[["Boundary blurring (X1)","rata-rata 3,22 dari 5",[16.0,49.6,34.4]],["Burnout (X2)","rata-rata 3,07 dari 5",[18.3,57.3,24.4]],["Produktivitas (Y)","rata-rata 3,13 dari 5",[21.4,51.9,26.7]]];
+$("#dist").innerHTML=D.map(d=>`<div class="row"><h3>${d[0]}<span>${d[1]}</span></h3><div class="stack" role="img" aria-label="Rendah ${d[2][0]}%, sedang ${d[2][1]}%, tinggi ${d[2][2]}%">${d[2].map((v,i)=>`<div class="s${i+1}" style="flex:${v}">${String(v).replace(".",",")}%</div>`).join("")}</div></div>`).join("");
+
+const I=[["X1_4","Hyperconnectivity mengaburkan batas",18.1,.198,1],["X1_1","Merespons pekerjaan di luar jam kerja",15.8,.136,1],["X2_4","Kurang peduli pada interaksi tim",12.4,.138,2],["X2_3","Kurang antusias atau sinis",10.0,.086,2],["X2_1","Kehabisan energi mental dan emosional",9.8,.056,2],["X2_5","Kurang percaya diri",8.9,.053,2],["X2_2","Lelah sebelum mulai bekerja",7.9,.058,2],["X1_3","Pekerjaan menyita waktu personal",7.0,.048,1],["X1_2","Sulit memisahkan urusan kerja dan pribadi",5.3,.030,1],["X1_5","Memikirkan pekerjaan saat aktivitas pribadi",4.7,.020,1]];
+function imp(mode){
+ const k=mode=="mdi"?2:3,rows=I.slice().sort((a,b)=>b[k]-a[k]),max=rows[0][k];
+ $("#imp").innerHTML=rows.map(r=>`<div class="r"><span class="c">${r[0]}</span><span>${r[1]}</span><span class="t"><i style="width:${r[k]/max*100}%;background:var(--${r[4]==1?"work":"life"})"></i></span><span class="v">${k==2?String(r[2]).replace(".",",")+"%":String(r[3]).replace(".",",")}</span></div>`).join("");
+ $("#bm").setAttribute("aria-pressed",mode=="mdi");$("#bp").setAttribute("aria-pressed",mode=="perm");
+}
+$("#bm").onclick=()=>imp("mdi");$("#bp").onclick=()=>imp("perm");imp("mdi");
+</script>
+</body>
+</html>
